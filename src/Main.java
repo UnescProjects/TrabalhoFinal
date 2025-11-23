@@ -1,16 +1,23 @@
-void main(String[] args) {
+public class Main {
+    public static void main(String[] args) {
 
-    List<Pacote> pacotes = LeitorDados.lerPacotes("data/pacotes.txt");
-    Grafo mapa = LeitorDados.lerGrafo("data/mapa_exemplo.txt");
+        Pacote[] pacotes = {
+                new Pacote(5, 10, 7),
+                new Pacote(8, 14, 6),
+                new Pacote(2, 5, 10),
+                new Pacote(6, 7, 5),
+                new Pacote(7, 9, 2)
+        };
 
-    // Programação Dinâmica
-    List<Pacote> selecionados = ProgramacaoDinamica.resolverMochila(pacotes, 100); // capacidade = 100kg
+        int capacidade = 15;
 
-    // Algoritmo Guloso
-    List<Pacote> ordenados = Guloso.ordenarPorPrazo(selecionados);
+        Resultado r = MochilaPD.MochilaPD(pacotes, capacidade);
 
-    // Dijkstra
-    double custoTotal = CaminhoMinimo.calcularRota(mapa, ordenados);
+        System.out.println("Valor máximo: " + r.valorMaximo);
 
-    ImpressaoResultados.mostrarRelatorio(selecionados, ordenados, custoTotal);
+        System.out.println("Pacotes escolhidos:");
+        for (Pacote p : r.selecionados) {
+            System.out.println("- Peso: " + p.peso + " | Valor: " + p.valor + " | Prazo: " + p.prazo);
+        }
+    }
 }
